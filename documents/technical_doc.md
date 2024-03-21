@@ -24,11 +24,7 @@ Welcome to the code documentation for Super Chicken Boy! This guide will provide
    - Checks for collisions between game objects (e.g., player, enemies, projectiles, obstacles).
    - Handles collision resolution and determines the outcome of collisions (e.g., player death, item collection).
 
-5. **Enemy AI:**
-   - Controls the behavior of enemies, such as patrolling, chasing the player, or attacking.
-   - Utilizes pathfinding algorithms or predefined patterns to navigate the game environment.
-
-6. **UI Manager:**
+5. **UI Manager:**
    - Displays relevant information to the player, such as the current score, remaining lives, and level progress.
    - Handles UI elements such as buttons, menus, and text prompts.
 
