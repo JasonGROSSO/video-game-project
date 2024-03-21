@@ -4,7 +4,7 @@ Welcome to the code documentation for Super Chicken Boy! This guide will provide
 
 ## Folder Structure:
 - **assets**: Contains all the game assets such as sprites, sound effects, and music.
-- **scripts**: Contains the game scripts written in the programming language of choice (e.g., Python, C#, JavaScript).
+- **scripts**: Contains the game scripts written in C++.
 - **levels**: Stores level data in a format that can be easily loaded by the game.
 
 ## Key Components:
