@@ -2,33 +2,27 @@
 #include <SFML/Graphics.hpp>
 #include "player.hpp" 
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode(1080, 720), "Super Chicken Boy");
-    sf::RectangleShape shape(sf::Vector2f(50.f, 50.f));
-    shape.setFillColor(sf::Color::Red);
+int main() {
+    sf::RenderWindow window(sf::VideoMode(1000, 800), "Super Chicken Boy!");
 
-    // Define variables for gravity
-    float gravity = 9.8; // m/s^2, you can adjust this value
-    float velocity = 0;  // Initial velocity
-    float dt = 0.1;      // Time step
+    Player player(sf::Vector2f(100, 100), sf::Vector2f(50, 50), 0.2f, 30.f);
 
-    float speed = 0.2f; // horizontal mouvement speed of the object
+    sf::Clock clock;
 
-    while (window.isOpen())
-    {
-
+    while (window.isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event))
-        {
+        while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
-        handleMovement(shape, window, speed, gravity, velocity, dt);
+        float dt = clock.restart().asSeconds();
 
         window.clear();
-        window.draw(shape);
+
+        player.handleMovement(window, dt);
+        player.draw(window);
+
         window.display();
     }
 
