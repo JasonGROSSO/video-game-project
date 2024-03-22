@@ -8,10 +8,16 @@ int main()
     sf::RectangleShape shape(sf::Vector2f(50.f, 50.f));
     shape.setFillColor(sf::Color::Red);
 
-    float speed = 0.2f;
+    // Define variables for gravity
+    float gravity = 9.8; // m/s^2, you can adjust this value
+    float velocity = 0;  // Initial velocity
+    float dt = 0.1;      // Time step
+
+    float speed = 0.2f; // horizontal mouvement speed of the object
 
     while (window.isOpen())
     {
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -19,7 +25,7 @@ int main()
                 window.close();
         }
 
-        handleMovement(shape, window, speed);
+        handleMovement(shape, window, speed, gravity, velocity, dt);
 
         window.clear();
         window.draw(shape);
