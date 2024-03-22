@@ -1,12 +1,11 @@
 #include <iostream>
-#include "player.h"
+#include "player.hpp"
 
 int start()
 {
     sf::RenderWindow window(sf::VideoMode(1000, 800), "Super Chicken Boy!");
     window.setFramerateLimit(60);
     player firstPlayer;
-    firstPlayer.shape = 50.f;
 
     while (window.isOpen())
     {
@@ -14,22 +13,30 @@ int start()
         // go to the left if Q is pressed
         if (Keyboard::isKeyPressed(Keyboard::Q))
         {
+            firstPlayer.getPosition();
             firstPlayer.goLeft();
+            firstPlayer.move(direction);
         }
         // go to the right if D is pressed
         if (Keyboard::isKeyPressed(Keyboard::D))
         {
+            firstPlayer.getPosition();
             firstPlayer.goRight();
+            firstPlayer.move(direction);
         }
         // go up if Z is pressed
         if (Keyboard::isKeyPressed(Keyboard::Z))
         {
+            firstPlayer.getPosition();
             firstPlayer.goUp();
+            firstPlayer.move(direction);
         }
         // go down if S is pressed
         if (Keyboard::isKeyPressed(Keyboard::S))
         {
+            firstPlayer.getPosition();
             firstPlayer.goDown();
+            firstPlayer.move(direction);
         }
 
         // close the game if the esc key is pressed
