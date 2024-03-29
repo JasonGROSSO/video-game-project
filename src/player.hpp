@@ -10,7 +10,7 @@ public:
         shape.setPosition(position);
     }
 
-void handleMovement(sf::RenderWindow& window, float dt, const std::vector<Wall>& walls) {
+void handleMovement(sf::RenderWindow& window, float dt, const std::vector<Wall>& walls); {
     sf::Vector2f nextPosition;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {

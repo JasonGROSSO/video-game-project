@@ -14,5 +14,9 @@ public:
     void draw(sf::RenderWindow& window) {
         window.draw(shape);
     }
+
+    sf::FloatRect getBounds() const {
+        return shape.getGlobalBounds();
+    }
 };
 
