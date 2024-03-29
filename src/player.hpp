@@ -2,8 +2,6 @@
 #define MOVEMENT_HPP
 
 #include "wall.hpp"
-#include <SFML/Graphics.hpp>
-#include "wall.hpp"
 
 class Player {
 private:
