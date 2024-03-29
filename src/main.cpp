@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "player.hpp" 
+// #include "wall.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1000, 800), "Super Chicken Boy!");
@@ -16,11 +17,11 @@ int main() {
                 window.close();
         }
 
-        float dt = clock.restart().asSeconds();
+        // float dt = clock.restart().asSeconds();
 
         window.clear();
 
-        player.handleMovement(window, dt);
+        player.handleMovement(window);
         player.draw(window);
 
         window.display();
