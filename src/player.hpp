@@ -4,19 +4,20 @@
 #include "wall.hpp"
 
 class Player {
-private:
+public:
     sf::RectangleShape shape;
     float speed;
     float gravity;
     sf::Vector2f velocity;
     bool isJumping;
+    float jumpHeight = 300.0f;
 
-public:
-    Player(sf::Vector2f position, sf::Vector2f size, float speed, float gravity)
-        : shape(size), speed(speed), gravity(gravity), velocity(0, 0), isJumping(false) {
-        shape.setPosition(position);
-        shape.setFillColor(sf::Color::Green);
-    }
+// public:
+//     Player(sf::Vector2f position, sf::Vector2f size, float speed, float gravity)
+//         : shape(size), speed(speed), gravity(gravity), velocity(0, 0), isJumping(false) {
+//         shape.setPosition(position);
+//         shape.setFillColor(sf::Color::Green);
+//     }
 
 void handleMovement(sf::RenderWindow& window) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
@@ -33,9 +34,9 @@ void handleMovement(sf::RenderWindow& window) {
             velocity = -sqrt(2.0f * gravity * jumpHeight);
         }
 
-void Player::draw(sf::RenderWindow& window) const {
-    window.draw(shape);
-}
+void draw(sf::RenderWindow& window) const {
+        window.draw(shape);
+    }
 
     // Apply gravity
     velocity += gravity * 0.001;  // Update velocity
@@ -51,7 +52,7 @@ void Player::draw(sf::RenderWindow& window) const {
     }
 }
 
-bool checkCollision(sf::Vector2f position, const std::vector<Wall>& walls) {
+bool checkCollision(sf::Vector2f nextPosition, std::vector<Wall>& walls) {
     sf::FloatRect playerBounds(position, shape.getSize());
     for (const Wall& wall : walls) {
         if (wall.getBounds().intersects(playerBounds))
@@ -59,10 +60,6 @@ bool checkCollision(sf::Vector2f position, const std::vector<Wall>& walls) {
     }
     return false;
 }
-
-    void draw(sf::RenderWindow& window) {
-        window.draw(shape);
-    }
 
 private:
     sf::RectangleShape shape;

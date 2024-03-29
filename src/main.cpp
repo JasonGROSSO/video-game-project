@@ -37,7 +37,7 @@ int main() {
             wall.draw(window);
         }
 
-        player.handleMovement(window, dt, walls);
+        player.handleMovement(window);
         player.draw(window);
 
         window.display();
