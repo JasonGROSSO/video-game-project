@@ -19,6 +19,8 @@ int main() {
 
     // ... add more walls as needed ...
 
+    sf::Clock clock;
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -26,6 +28,7 @@ int main() {
                 window.close();
         }
 
+        float dt = clock.restart().asSeconds();
 
         window.clear();
 
@@ -34,7 +37,7 @@ int main() {
             wall.draw(window);
         }
 
-        player.handleMovement(window, walls);
+        player.handleMovement(window, dt, walls);
         player.draw(window);
 
         window.display();

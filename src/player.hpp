@@ -1,18 +1,22 @@
-#ifndef MOVEMENT_HPP
-#define MOVEMENT_HPP
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
 #include "wall.hpp"
 
 class Player {
 private:
     sf::RectangleShape shape;
+    float speed;
+    float gravity;
+    sf::Vector2f velocity;
+    bool isJumping;
 
 public:
     Player(sf::Vector2f position, sf::Vector2f size, float speed, float gravity)
-        : shape(size), speed(speed), gravity(gravity), velocity(0), isJumping(false) {
+        : shape(size), speed(speed), gravity(gravity), velocity(0, 0), isJumping(false) {
         shape.setPosition(position);
         shape.setFillColor(sf::Color::Green);
-        }
+    }
 
 void handleMovement(sf::RenderWindow& window) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {

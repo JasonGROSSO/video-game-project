@@ -1,3 +1,6 @@
+#ifndef WALL_HPP
+#define WALL_HPP
+
 #include <SFML/Graphics.hpp>
 
 class Wall {
@@ -8,7 +11,7 @@ public:
     Wall(sf::Vector2f position, sf::Vector2f size) {
         shape.setPosition(position);
         shape.setSize(size);
-        shape.setFillColor(sf::Color::White); // Change this to the color you want
+        shape.setFillColor(sf::Color::White);
     }
 
     void draw(sf::RenderWindow& window) const {
@@ -20,3 +23,4 @@ public:
     }
 };
 
+#endif
