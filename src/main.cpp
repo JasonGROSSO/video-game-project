@@ -27,5 +27,15 @@ int main() {
         window.display();
     }
 
+    Wall wall(sf::Vector2f(200, 200), sf::Vector2f(50, 50));
+
+    while (window.isOpen()) {
+        // ...
+
+        wall.draw(window);
+
+        window.display();
+    }
+
     return 0;
 }
