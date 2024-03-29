@@ -1,7 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "player.hpp" 
-#include "wall.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1000, 800), "Super Chicken Boy!");
@@ -20,8 +19,6 @@ int main() {
 
     // ... add more walls as needed ...
 
-    sf::Clock clock;
-
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -29,7 +26,6 @@ int main() {
                 window.close();
         }
 
-        float dt = clock.restart().asSeconds();
 
         window.clear();
 
@@ -38,7 +34,7 @@ int main() {
             wall.draw(window);
         }
 
-        player.handleMovement(window, dt, walls);
+        player.handleMovement(window, walls);
         player.draw(window);
 
         window.display();

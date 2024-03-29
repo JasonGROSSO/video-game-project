@@ -2,41 +2,37 @@
 #define MOVEMENT_HPP
 
 #include <SFML/Graphics.hpp>
+#include "wall.hpp"
 
 class Player {
 public:
     Player(sf::Vector2f position, sf::Vector2f size, float speed, float gravity)
-        : shape(size), speed(speed), gravity(gravity), velocity(0) {
+        : shape(size), speed(speed), gravity(gravity), velocity(0), isJumping(false) {
         shape.setPosition(position);
     }
 
-void handleMovement(sf::RenderWindow& window, float dt, const std::vector<Wall>& walls); {
-    sf::Vector2f nextPosition;
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        nextPosition = shape.getPosition() - sf::Vector2f(speed, 0);
-        if (nextPosition.x > 0 && !checkCollision(nextPosition, walls))
-            shape.move(-speed, 0);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        nextPosition = shape.getPosition() + sf::Vector2f(speed, 0);
-        if (nextPosition.x < window.getSize().x - shape.getSize().x && !checkCollision(nextPosition, walls))
-            shape.move(speed, 0);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        nextPosition = shape.getPosition() - sf::Vector2f(0, speed);
-        if (nextPosition.y > 0 && !checkCollision(nextPosition, walls))
-            shape.move(0, -speed);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        nextPosition = shape.getPosition() + sf::Vector2f(0, speed);
-        if (nextPosition.y < window.getSize().y - shape.getSize().y && !checkCollision(nextPosition, walls))
-            shape.move(0, speed);
-    }
+void handleMovement(sf::RenderWindow& window) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            if (shape.getPosition().x > 0)
+                shape.move(-speed, 0);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            if (shape.getPosition().x < window.getSize().x - shape.getSize().x)
+                shape.move(speed, 0);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !isJumping) {
+            // Only jump if not already jumping
+            isJumping = true;
+            velocity = -sqrt(2.0f * gravity * jumpHeight);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            if (shape.getPosition().y < window.getSize().y - shape.getSize().y)
+                shape.move(0, speed);
+        }
 
     // Apply gravity
-    velocity += gravity * dt;  // Update velocity
-    float displacement = velocity * dt; // Calculate displacement
+    velocity += gravity * 0.001;  // Update velocity
+    float displacement = velocity * 0.001; // Calculate displacement
     nextPosition = shape.getPosition() + sf::Vector2f(0, displacement);
     if (!checkCollision(nextPosition, walls)) // Check collision before moving
         shape.move(0, displacement); // Move the shape
@@ -66,6 +62,8 @@ private:
     float speed;
     float gravity;
     float velocity;
+    bool isJumping;
+    float jumpHeight = 300.0f;
 }; 
 
 #endif
