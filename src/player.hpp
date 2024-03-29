@@ -49,6 +49,7 @@ void draw(sf::RenderWindow& window) const {
     if (shape.getPosition().y + shape.getSize().y >= window.getSize().y) {
         shape.setPosition(shape.getPosition().x, window.getSize().y - shape.getSize().y);
         velocity = 0; // Stop the shape
+        isJumping = false;
     }
 }
 
