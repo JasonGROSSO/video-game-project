@@ -1,14 +1,19 @@
 #ifndef MOVEMENT_HPP
 #define MOVEMENT_HPP
 
+#include "wall.hpp"
 #include <SFML/Graphics.hpp>
 
 class Player {
+private:
+    sf::RectangleShape shape;
+
 public:
     Player(sf::Vector2f position, sf::Vector2f size, float speed, float gravity)
         : shape(size), speed(speed), gravity(gravity), velocity(0) {
         shape.setPosition(position);
-    }
+        shape.setFillColor(sf::Color::Green);
+        }
 
 void handleMovement(sf::RenderWindow& window, float dt, const std::vector<Wall>& walls); {
     sf::Vector2f nextPosition;
@@ -33,6 +38,10 @@ void handleMovement(sf::RenderWindow& window, float dt, const std::vector<Wall>&
         if (nextPosition.y < window.getSize().y - shape.getSize().y && !checkCollision(nextPosition, walls))
             shape.move(0, speed);
     }
+
+void Player::draw(sf::RenderWindow& window) const {
+    window.draw(shape);
+}
 
     // Apply gravity
     velocity += gravity * dt;  // Update velocity

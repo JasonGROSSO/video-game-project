@@ -11,7 +11,7 @@ public:
         shape.setFillColor(sf::Color::White); // Change this to the color you want
     }
 
-    void draw(sf::RenderWindow& window) {
+    void draw(sf::RenderWindow& window) const {
         window.draw(shape);
     }
 
