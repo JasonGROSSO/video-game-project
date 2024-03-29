@@ -30,10 +30,6 @@ void handleMovement(sf::RenderWindow& window) {
             isJumping = true;
             velocity = -sqrt(2.0f * gravity * jumpHeight);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            if (shape.getPosition().y < window.getSize().y - shape.getSize().y)
-                shape.move(0, speed);
-        }
 
 void Player::draw(sf::RenderWindow& window) const {
     window.draw(shape);
