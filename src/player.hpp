@@ -10,7 +10,7 @@ public:
         shape.setPosition(position);
     }
 
-    void handleMovement(sf::RenderWindow& window, float dt) {
+    void handleMovement(sf::RenderWindow& window) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             if (shape.getPosition().x > 0)
                 shape.move(-speed, 0);
@@ -29,8 +29,8 @@ public:
         }
 
         // Apply gravity
-        velocity += gravity * dt;  // Update velocity
-        float displacement = velocity * dt; // Calculate displacement
+        velocity += gravity * 0.001;  // Update velocity
+        float displacement = velocity * 0.001; // Calculate displacement
         shape.move(0, displacement); // Move the shape
 
         // If the shape reaches the bottom, stop it
