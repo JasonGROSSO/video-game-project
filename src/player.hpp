@@ -1,11 +1,12 @@
-#ifndef MOVEMENT_HPP
-#define MOVEMENT_HPP
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include "wall.hpp"
 
 class Player {
+
 public:
     sf::RectangleShape shape;
     float speed;
@@ -19,7 +20,7 @@ public:
         shape.setPosition(position);
     }
 
-    void draw(sf::RenderWindow& window) {
+void draw(sf::RenderWindow& window) {
         window.draw(shape);
     }
 }; 
