@@ -31,6 +31,7 @@
 *.out
 *.app
 src/main
+src/sfml-app
 
 
 .vscode
