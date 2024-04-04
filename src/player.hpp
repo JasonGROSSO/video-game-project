@@ -9,13 +9,14 @@ class Player {
 public:
     sf::RectangleShape shape;
     float maxSpeed;
-    float speed;
-    float acceleration = 2.0f;
+    float gravity = 0.003f;
+    float acceleration = 0.000020f;
+    float inertia = 0.00004f;
     bool isJumping;
-    float jumpHeight = 300.0f;
+    float jumpHeight = 250.0f;
 
     Player(sf::Vector2f position, sf::Vector2f size, float speed)
-        : shape(size), maxSpeed(speed), speed(speed), isJumping(false) {
+        : shape(size), maxSpeed(speed), isJumping(true) {
         shape.setPosition(position);
     }
 

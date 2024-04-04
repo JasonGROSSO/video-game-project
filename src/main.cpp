@@ -12,8 +12,13 @@ int main() {
     const int WINDOW_HEIGHT = GRID_SIZE * 50;
     RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Super Chicken Boy!");
 
-    Player player(Vector2f(GRID_SIZE * 4, GRID_SIZE * 48), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 0.035f);
+    Player player(Vector2f(GRID_SIZE * 4, GRID_SIZE * 48), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 0.04f);
     Vector2f velocity;
+    velocity.y = 0.f;
+    velocity.x = 0.f;
+    Vector2f speed;
+    speed.y = 0.f;
+    speed.x = 0.f;
     FloatRect nextPos;
 
     Walls wall;
@@ -29,7 +34,6 @@ int main() {
                 window.close();
         }
 
-        velocity.x = 0.f;
         // movements -----------------------
         if (Keyboard::isKeyPressed(Keyboard::Up) && !player.isJumping) {
             // Jump if not already jumping
@@ -37,12 +41,53 @@ int main() {
             velocity.y = JUMP_VELOCITY; // Set vertical velocity to jump velocity
         }
         if (Keyboard::isKeyPressed(Keyboard::Left)) {
-            velocity.x = -player.maxSpeed;
+            if (-player.maxSpeed >= speed.x) {
+                velocity.x = -player.maxSpeed;
+            }
+            else if (speed.x > 0) {
+                speed.x -= player.inertia;
+                velocity.x = speed.x;
+            }
+            else {
+                speed.x -= player.acceleration;
+                velocity.x = speed.x;
+            }
         }
         if (Keyboard::isKeyPressed(Keyboard::Right)) {
-            velocity.x = player.maxSpeed;
+            if (player.maxSpeed <= speed.x) {
+                velocity.x = player.maxSpeed;
+            }
+            else if (speed.x < 0) {
+                speed.x += player.inertia;
+                velocity.x = speed.x;
+            }
+            else {
+                speed.x += player.acceleration;
+                velocity.x = speed.x;
+            }
+        }
+        if (!Keyboard::isKeyPressed(Keyboard::Left) && !Keyboard::isKeyPressed(Keyboard::Right)) {
+            if (speed.x < 0) {
+                if (speed.x == 0) {
+                    velocity.x = 0.f;
+                }
+                else {
+                    speed.x += player.inertia;
+                    velocity.x = speed.x;
+                }
+            }
+            if (speed.x > 0) {
+                if (speed.x == 0) {
+                    velocity.x = 0.f;
+                }
+                else {
+                    speed.x -= player.inertia;
+                    velocity.x = speed.x;
+                }
+            }
         }
 
+        // wall collisions
         for (auto &wall : wall.walls) {
             FloatRect playerBounds = player.shape.getGlobalBounds();
             FloatRect wallBounds = wall.getGlobalBounds();
@@ -52,6 +97,7 @@ int main() {
             nextPos.left += velocity.x;
 
             if (wallBounds.intersects(nextPos)) {
+                // top
                 if (playerBounds.top > wallBounds.top
                 && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
                 && playerBounds.left < wallBounds.left + wallBounds.width
@@ -74,6 +120,7 @@ int main() {
                 && playerBounds.top + playerBounds.height > wallBounds.top) {
                     velocity.x = 0.f;
                     player.shape.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
+                    player.isJumping = false;
                 }
                 // right
                 else if (playerBounds.left < wallBounds.left
@@ -82,6 +129,7 @@ int main() {
                 && playerBounds.top + playerBounds.height > wallBounds.top) {
                     velocity.x = 0.f;
                     player.shape.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
+                    player.isJumping = false;
                 }
             }
         }
