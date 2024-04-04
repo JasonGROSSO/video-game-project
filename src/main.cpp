@@ -1,6 +1,7 @@
 #include <iostream>
 #include "player.hpp"
 #include "wall.hpp"
+#include "finish.hpp"
 
 using namespace sf;
 
@@ -24,6 +25,12 @@ int main() {
 
     Walls wall;
     wall.setWalls();
+
+    Finish finish;
+    finish.setFinish();
+
+    Finish finish;
+    finish.setFinish();
 
     const float GRAVITY = 0.9f; // Define gravity constant
     const float JUMP_VELOCITY = -16.f; // Define jump velocity
@@ -155,6 +162,10 @@ int main() {
             }
         }
 
+        if(player.shape.getGlobalBounds().intersects(finish.shape.getGlobalBounds())) {
+            
+        }
+
         // Apply gravity
         velocity.y += GRAVITY;
 
@@ -186,6 +197,7 @@ int main() {
         for (auto &i : wall.walls) {
             window.draw(i);
         }
+        window.draw(finish.shape);
         player.draw(window);
 
         window.display();
