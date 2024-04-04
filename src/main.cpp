@@ -12,7 +12,7 @@ int main() {
     const int WINDOW_HEIGHT = GRID_SIZE * 50;
     RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Super Chicken Boy!");
 
-    Player player(Vector2f(GRID_SIZE * 4, GRID_SIZE * 48), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 0.04f);
+    Player player(Vector2f(GRID_SIZE * 4, GRID_SIZE * 48), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 0.06f);
     Vector2f velocity;
     velocity.y = 0.f;
     velocity.x = 0.f;
@@ -39,6 +39,14 @@ int main() {
             // Jump if not already jumping
             player.isJumping = true;
             velocity.y = JUMP_VELOCITY; // Set vertical velocity to jump velocity
+            if (Keyboard::isKeyPressed(Keyboard::Left) && player.onWall) {
+                speed.x += 0.045f;
+                velocity.x = speed.x;
+            }
+            if (Keyboard::isKeyPressed(Keyboard::Right) && player.onWall) {
+                speed.x -= 0.045f;
+                velocity.x = speed.x;
+            }
         }
         if (Keyboard::isKeyPressed(Keyboard::Left)) {
             if (-player.maxSpeed >= speed.x) {
@@ -103,6 +111,7 @@ int main() {
                 && playerBounds.left < wallBounds.left + wallBounds.width
                 && playerBounds.left + playerBounds.width > wallBounds.left) {
                     player.shape.setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
+                    player.onWall = false;
                 }
                 // bottom
                 else if (playerBounds.top < wallBounds.top
@@ -112,24 +121,32 @@ int main() {
                     velocity.y = 0.f;
                     player.shape.setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
                     player.isJumping = false;
+                    player.onWall = false;
                 }
                 // left
                 else if (playerBounds.left > wallBounds.left
                 && playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width
                 && playerBounds.top < wallBounds.top + wallBounds.height
                 && playerBounds.top + playerBounds.height > wallBounds.top) {
-                    velocity.x = 0.f;
+                    speed.x = 0.f;
+                    velocity.x = speed.x;
                     player.shape.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
                     player.isJumping = false;
+                    player.onWall = true;
                 }
                 // right
                 else if (playerBounds.left < wallBounds.left
                 && playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width
                 && playerBounds.top < wallBounds.top + wallBounds.height
                 && playerBounds.top + playerBounds.height > wallBounds.top) {
-                    velocity.x = 0.f;
+                    speed.x = 0.f;
+                    velocity.x = speed.x;
                     player.shape.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
                     player.isJumping = false;
+                    player.onWall = true;
+                }
+                else {
+                    player.onWall = false;
                 }
             }
         }
