@@ -4,9 +4,12 @@ class Walls {
 public:
     std::vector<sf::RectangleShape> walls;
     sf::RectangleShape shape;
+    sf::Texture wallTexture;
 
     void setWalls() {
-        shape.setFillColor(sf::Color(0x6f6f6fff));
+        wallTexture.loadFromFile("img/wallTexture.jpg");
+        wallTexture.setRepeated(true);
+        shape.setTexture(&wallTexture);
 
         // Main walls
         shape.setPosition(sf::Vector2f(0, GRID_SIZE * 49)); shape.setSize(sf::Vector2f(GRID_SIZE * 30, GRID_SIZE)); walls.push_back(shape);
