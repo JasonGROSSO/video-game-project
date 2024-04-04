@@ -1,5 +1,5 @@
 #include <iostream>
-#include "player.hpp" 
+#include "player.hpp"
 #include "wall.hpp"
 
 using namespace sf;
@@ -12,12 +12,15 @@ int main() {
     const int WINDOW_HEIGHT = GRID_SIZE * 50;
     RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Super Chicken Boy!");
 
-    Player player(Vector2f(GRID_SIZE * 4, GRID_SIZE * 48), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 0.035f, 30.f);
+    Player player(Vector2f(GRID_SIZE * 4, GRID_SIZE * 48), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 0.035f);
     Vector2f velocity;
     FloatRect nextPos;
 
     Walls wall;
     wall.setWalls();
+
+    const float GRAVITY = 0.0001f; // Define gravity constant
+    const float JUMP_VELOCITY = -0.16f; // Define jump velocity
 
     while (window.isOpen()) {
         Event event;
@@ -26,22 +29,18 @@ int main() {
                 window.close();
         }
 
-        velocity.y = 0.f;
         velocity.x = 0.f;
         // movements -----------------------
         if (Keyboard::isKeyPressed(Keyboard::Up) && !player.isJumping) {
-            // Only jump if not already jumping
+            // Jump if not already jumping
             player.isJumping = true;
-            velocity.y = -sqrt(2.0f * player.gravity * player.jumpHeight);
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Down)) {
-            velocity.y = player.speed;
+            velocity.y = JUMP_VELOCITY; // Set vertical velocity to jump velocity
         }
         if (Keyboard::isKeyPressed(Keyboard::Left)) {
-            velocity.x = -player.speed;
+            velocity.x = -player.maxSpeed;
         }
         if (Keyboard::isKeyPressed(Keyboard::Right)) {
-            velocity.x = player.speed;
+            velocity.x = player.maxSpeed;
         }
 
         for (auto &wall : wall.walls) {
@@ -57,9 +56,7 @@ int main() {
                 && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
                 && playerBounds.left < wallBounds.left + wallBounds.width
                 && playerBounds.left + playerBounds.width > wallBounds.left) {
-                    // velocity.y = 0.f;
                     player.shape.setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
-                    player.isJumping = false;
                 }
                 // bottom
                 else if (playerBounds.top < wallBounds.top
@@ -77,7 +74,6 @@ int main() {
                 && playerBounds.top + playerBounds.height > wallBounds.top) {
                     velocity.x = 0.f;
                     player.shape.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
-                    player.isJumping = false;
                 }
                 // right
                 else if (playerBounds.left < wallBounds.left
@@ -86,10 +82,13 @@ int main() {
                 && playerBounds.top + playerBounds.height > wallBounds.top) {
                     velocity.x = 0.f;
                     player.shape.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
-                    player.isJumping = false;
                 }
             }
         }
+
+        // Apply gravity
+        velocity.y += GRAVITY;
+
         player.shape.move(velocity);
 
 
@@ -112,14 +111,9 @@ int main() {
             player.shape.setPosition(WINDOW_WIDTH - player.shape.getGlobalBounds().width, player.shape.getPosition().y);
         }
 
-        // gravity
-        float displacement = 0.075;
-        player.shape.move(0, displacement);
-
-
         // display everything
         window.clear();
-        
+
         for (auto &i : wall.walls) {
             window.draw(i);
         }
