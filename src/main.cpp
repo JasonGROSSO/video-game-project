@@ -7,6 +7,7 @@ using namespace sf;
 int collisions(FloatRect playerBounds, FloatRect wallBounds);
 
 int main() {
+    const int GRID_SIZE = 20;
     const int WINDOW_WIDTH = GRID_SIZE * 30;
     const int WINDOW_HEIGHT = GRID_SIZE * 50;
     RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Super Chicken Boy!");
