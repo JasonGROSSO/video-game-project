@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
-#include "wall.hpp"
 
 class Player {
 

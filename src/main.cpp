@@ -11,13 +11,16 @@ int main() {
     const int WINDOW_HEIGHT = GRID_SIZE * 50;
     RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Super Chicken Boy!");
 
-    Player player(Vector2f(600, 600), Vector2f(15, 15), 0.035f, 30.f);
+    Player player(Vector2f(600, 600), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 0.035f, 30.f);
     Vector2f velocity;
     FloatRect nextPos;
 
-    std::vector<RectangleShape> walls1; Wall wall1(Vector2f(0, GRID_SIZE * 49), Vector2f(GRID_SIZE * 30, GRID_SIZE)); walls1.push_back(wall1.shape);
-    std::vector<RectangleShape> walls2; Wall wall2(Vector2f(0, GRID_SIZE * 45), Vector2f(GRID_SIZE * 22, GRID_SIZE * 2)); walls2.push_back(wall2.shape);
-    std::vector<RectangleShape> walls3; Wall wall3(Vector2f(GRID_SIZE * 29, GRID_SIZE * 37), Vector2f(GRID_SIZE, GRID_SIZE * 12)); walls3.push_back(wall3.shape);
+    Walls wall;
+    wall.setWalls();
+
+    //std::vector<RectangleShape> walls1; Wall wall1(Vector2f(0, GRID_SIZE * 49), Vector2f(GRID_SIZE * 30, GRID_SIZE)); walls1.push_back(wall1.shape);
+    //std::vector<RectangleShape> walls2; Wall wall2(Vector2f(0, GRID_SIZE * 45), Vector2f(GRID_SIZE * 22, GRID_SIZE * 2)); walls2.push_back(wall2.shape);
+    //std::vector<RectangleShape> walls3; Wall wall3(Vector2f(GRID_SIZE * 29, GRID_SIZE * 37), Vector2f(GRID_SIZE, GRID_SIZE * 12)); walls3.push_back(wall3.shape);
 
     while (window.isOpen()) {
         Event event;
@@ -42,7 +45,7 @@ int main() {
             velocity.x = player.speed;
         }
 
-        for (auto &wall : walls1) {
+        for (auto &wall : wall.walls) {
             FloatRect playerBounds = player.shape.getGlobalBounds();
             FloatRect wallBounds = wall.getGlobalBounds();
 
@@ -71,65 +74,6 @@ int main() {
                 }
             }
         }
-        for (auto &wall : walls2) {
-            FloatRect playerBounds = player.shape.getGlobalBounds();
-            FloatRect wallBounds = wall.getGlobalBounds();
-
-            nextPos = playerBounds;
-            nextPos.top += velocity.y;
-            nextPos.left += velocity.x;
-
-            if (wallBounds.intersects(nextPos)) {
-                switch (collisions(playerBounds, wallBounds)) {
-                    case 1:
-                        velocity.y = 0.f;
-                        player.shape.setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
-                        break;
-                    case 2:
-                        velocity.y = 0.f;
-                        player.shape.setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
-                        break;
-                    case 3:
-                        velocity.x = 0.f;
-                        player.shape.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
-                        break;
-                    case 4:
-                        velocity.x = 0.f;
-                        player.shape.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
-                        break;
-                }
-            }
-        }
-        for (auto &wall : walls3) {
-            FloatRect playerBounds = player.shape.getGlobalBounds();
-            FloatRect wallBounds = wall.getGlobalBounds();
-
-            nextPos = playerBounds;
-            nextPos.top += velocity.y;
-            nextPos.left += velocity.x;
-
-            if (wallBounds.intersects(nextPos)) {
-                switch (collisions(playerBounds, wallBounds)) {
-                    case 1:
-                        velocity.y = 0.f;
-                        player.shape.setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
-                        break;
-                    case 2:
-                        velocity.y = 0.f;
-                        player.shape.setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
-                        break;
-                    case 3:
-                        velocity.x = 0.f;
-                        player.shape.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
-                        break;
-                    case 4:
-                        velocity.x = 0.f;
-                        player.shape.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
-                        break;
-                }
-            }
-        }
-
         player.shape.move(velocity);
 
 
@@ -157,6 +101,9 @@ int main() {
         // display everything
         window.clear();
         
+        for (auto &i : wall.walls) {
+            window.draw(i);
+        }
         player.draw(window);
 
         window.display();
