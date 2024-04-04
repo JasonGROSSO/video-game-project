@@ -9,8 +9,8 @@ class Player {
 public:
     sf::RectangleShape shape;
     float maxSpeed;
-    float acceleration = 0.00002f;
-    float inertia = 0.00004f;
+    float acceleration = 0.2f/*0.00002f*/;
+    float inertia = 0.4f/*0.00004f*/;
     bool isJumping;
     bool onWall;
 

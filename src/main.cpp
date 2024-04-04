@@ -11,8 +11,9 @@ int main() {
     const int WINDOW_WIDTH = GRID_SIZE * 30;
     const int WINDOW_HEIGHT = GRID_SIZE * 50;
     RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Super Chicken Boy!");
+    window.setFramerateLimit(60);
 
-    Player player(Vector2f(GRID_SIZE * 4, GRID_SIZE * 48), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 0.06f);
+    Player player(Vector2f(GRID_SIZE * 4, GRID_SIZE * 48), Vector2f(GRID_SIZE - 5, GRID_SIZE - 5), 6.f/*0.06f*/);
     Vector2f velocity;
     velocity.y = 0.f;
     velocity.x = 0.f;
@@ -24,14 +25,17 @@ int main() {
     Walls wall;
     wall.setWalls();
 
-    const float GRAVITY = 0.0001f; // Define gravity constant
-    const float JUMP_VELOCITY = -0.16f; // Define jump velocity
+    const float GRAVITY = 0.9f; // Define gravity constant
+    const float JUMP_VELOCITY = -16.f; // Define jump velocity
 
     while (window.isOpen()) {
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed)
                 window.close();
+            if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
+                window.close();
+            }
         }
 
         // movements -----------------------
@@ -40,11 +44,11 @@ int main() {
             player.isJumping = true;
             velocity.y = JUMP_VELOCITY; // Set vertical velocity to jump velocity
             if (Keyboard::isKeyPressed(Keyboard::Left) && player.onWall) {
-                speed.x += 0.045f;
+                speed.x += 4.6f;
                 velocity.x = speed.x;
             }
             if (Keyboard::isKeyPressed(Keyboard::Right) && player.onWall) {
-                speed.x -= 0.045f;
+                speed.x -= 4.6f;
                 velocity.x = speed.x;
             }
         }
@@ -76,20 +80,20 @@ int main() {
         }
         if (!Keyboard::isKeyPressed(Keyboard::Left) && !Keyboard::isKeyPressed(Keyboard::Right)) {
             if (speed.x < 0) {
-                if (speed.x == 0) {
+                speed.x += player.inertia;
+                if (speed.x >= 0) {
                     velocity.x = 0.f;
                 }
                 else {
-                    speed.x += player.inertia;
                     velocity.x = speed.x;
                 }
             }
             if (speed.x > 0) {
-                if (speed.x == 0) {
+                speed.x -= player.inertia;
+                if (speed.x <= 0) {
                     velocity.x = 0.f;
                 }
                 else {
-                    speed.x -= player.inertia;
                     velocity.x = speed.x;
                 }
             }
