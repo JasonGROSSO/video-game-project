@@ -29,8 +29,10 @@ int main() {
         velocity.y = 0.f;
         velocity.x = 0.f;
         // movements -----------------------
-        if (Keyboard::isKeyPressed(Keyboard::Up)) {
-            velocity.y = -player.speed;
+        if (Keyboard::isKeyPressed(Keyboard::Up) && !player.isJumping) {
+            // Only jump if not already jumping
+            player.isJumping = true;
+            velocity.y = -sqrt(2.0f * player.gravity * player.jumpHeight);
         }
         if (Keyboard::isKeyPressed(Keyboard::Down)) {
             velocity.y = player.speed;
@@ -55,8 +57,9 @@ int main() {
                 && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
                 && playerBounds.left < wallBounds.left + wallBounds.width
                 && playerBounds.left + playerBounds.width > wallBounds.left) {
-                    velocity.y = 0.f;
+                    // velocity.y = 0.f;
                     player.shape.setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
+                    player.isJumping = false;
                 }
                 // bottom
                 else if (playerBounds.top < wallBounds.top
@@ -65,6 +68,7 @@ int main() {
                 && playerBounds.left + playerBounds.width > wallBounds.left) {
                     velocity.y = 0.f;
                     player.shape.setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
+                    player.isJumping = false;
                 }
                 // left
                 else if (playerBounds.left > wallBounds.left
@@ -73,6 +77,7 @@ int main() {
                 && playerBounds.top + playerBounds.height > wallBounds.top) {
                     velocity.x = 0.f;
                     player.shape.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
+                    player.isJumping = false;
                 }
                 // right
                 else if (playerBounds.left < wallBounds.left
@@ -81,6 +86,7 @@ int main() {
                 && playerBounds.top + playerBounds.height > wallBounds.top) {
                     velocity.x = 0.f;
                     player.shape.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
+                    player.isJumping = false;
                 }
             }
         }
@@ -95,6 +101,7 @@ int main() {
         // bottom
         if (player.shape.getPosition().y + player.shape.getGlobalBounds().height > WINDOW_HEIGHT) {
             player.shape.setPosition(player.shape.getPosition().x, WINDOW_HEIGHT - player.shape.getGlobalBounds().height);
+            player.isJumping = false;
         }
         // left
         if (player.shape.getPosition().x < 0) {

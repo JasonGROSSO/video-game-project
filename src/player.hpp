@@ -12,7 +12,7 @@ public:
     float gravity;
     float acceleration = 2.0f;
     bool isJumping;
-    float JumpHeight = 300.0f;
+    float jumpHeight = 300.0f;
 
     Player(sf::Vector2f position, sf::Vector2f size, float speed, float gravity)
         : shape(size), speed(speed), gravity(gravity), isJumping(false) {
