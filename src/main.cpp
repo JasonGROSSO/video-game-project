@@ -44,21 +44,21 @@ int main() {
     finish.setFinish2();
     
     // setting up sounds
-    SoundBuffer bufferEnd;
-    if (!bufferEnd.loadFromFile("sounds/goodEnding.wav"))
-        return -1;
-    Sound soundEnd;
-    soundEnd.setBuffer(bufferEnd);
-    soundEnd.setLoop(true);
-    soundEnd.setVolume(60.f);
+    // SoundBuffer bufferEnd;
+    // if (!bufferEnd.loadFromFile("sounds/goodEnding.wav"))
+    //     return -1;
+    // Sound soundEnd;
+    // soundEnd.setBuffer(bufferEnd);
+    // soundEnd.setLoop(true);
+    // soundEnd.setVolume(60.f);
 
-    SoundBuffer bufferDeath;
-    if (!bufferDeath.loadFromFile("sounds/deathSound.wav"))
-        return -1;
-    Sound soundDeath;
-    soundDeath.setBuffer(bufferDeath);
-    soundDeath.setPlayingOffset(sf::milliseconds(700));
-    soundDeath.setVolume(60.f);
+    // SoundBuffer bufferDeath;
+    // if (!bufferDeath.loadFromFile("sounds/deathSound.wav"))
+    //     return -1;
+    // Sound soundDeath;
+    // soundDeath.setBuffer(bufferDeath);
+    // soundDeath.setPlayingOffset(sf::milliseconds(700));
+    // soundDeath.setVolume(60.f);
 
     // setting up font
     Font font;
@@ -241,8 +241,8 @@ int main() {
 
             if (spikesBounds.intersects(playerBounds)) {
                 player.shape.setPosition(player.spawnPoint);
-                soundDeath.setPlayingOffset(sf::milliseconds(750));
-                soundDeath.play();
+                // soundDeath.setPlayingOffset(sf::milliseconds(750));
+                // soundDeath.play();
             }
         }
 
@@ -287,7 +287,7 @@ int main() {
     RenderWindow window2(VideoMode(1065, 160), "Well done !");
 
     // playing sound
-    soundEnd.play();
+    // soundEnd.play();
 
     // start ending window
     while (window2.isOpen()) {
