@@ -1,24 +1,26 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <SFML/Graphics.hpp>
 #include <cmath>
 
 class Player {
-
 public:
+    const int GRID_SIZE = 20;
+    //const sf::Vector2f spawnPoint = Vector2f(GRID_SIZE * 4, GRID_SIZE * 48);
+
     sf::RectangleShape shape;
     sf::Texture playerTexture;
-    float maxSpeed;
-    float acceleration = 0.2f/*0.00002f*/;
-    float inertia = 0.4f/*0.00004f*/;
-    bool isJumping;
-    bool onWall;
+    float maxSpeed = 6.f;
+    float acceleration = 0.2f;
+    float inertia = 0.4f;
+    bool isJumping = true;
+    bool onWall = true;
 
-    Player(sf::Vector2f position, sf::Vector2f size, float speed): shape(size), maxSpeed(speed), isJumping(true), onWall(false) {
+    void setPlayer() {
         playerTexture.loadFromFile("img/chicken.png");
         shape.setTexture(&playerTexture);
-        shape.setPosition(position);
+        shape.setPosition(sf::Vector2f(GRID_SIZE * 7, GRID_SIZE * 6));
+        shape.setSize(sf::Vector2f(GRID_SIZE - 5, GRID_SIZE - 5));
     }
 
 void draw(sf::RenderWindow& window) {
