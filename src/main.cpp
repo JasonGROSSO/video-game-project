@@ -8,8 +8,6 @@
 
 using namespace sf;
 
-void playSound(Sound sound);
-
 const int GRID_SIZE = 20;
 
 int main() {
@@ -313,8 +311,4 @@ int main() {
     }
 
     return 0;
-}
-
-void playSound(Sound sound) {
-    sound.play();
 }
