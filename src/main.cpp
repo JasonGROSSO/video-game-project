@@ -3,11 +3,12 @@
 #include <SFML/Audio.hpp>
 #include "player.hpp"
 #include "wall.hpp"
+#include "spikes.hpp"
 #include "finish.hpp"
 
 using namespace sf;
 
-int collisions(FloatRect playerBounds, FloatRect wallBounds);
+void playSound(Sound sound);
 
 const int GRID_SIZE = 20;
 
@@ -45,13 +46,21 @@ int main() {
     finish.setFinish2();
     
     // setting up sounds
-    SoundBuffer Buffer;
-    if (!Buffer.loadFromFile("sounds/goodEnding.wav"))
+    SoundBuffer bufferEnd;
+    if (!bufferEnd.loadFromFile("sounds/goodEnding.wav"))
         return -1;
-    Sound Sound;
-    Sound.setBuffer(Buffer);
-    Sound.setLoop(true);
-    Sound.setVolume(60.f);
+    Sound soundEnd;
+    soundEnd.setBuffer(bufferEnd);
+    soundEnd.setLoop(true);
+    soundEnd.setVolume(60.f);
+
+    SoundBuffer bufferDeath;
+    if (!bufferDeath.loadFromFile("sounds/deathSound.wav"))
+        return -1;
+    Sound soundDeath;
+    soundDeath.setBuffer(bufferDeath);
+    soundDeath.setPlayingOffset(sf::milliseconds(700));
+    soundDeath.setVolume(60.f);
 
     // setting up font
     Font font;
@@ -73,7 +82,7 @@ int main() {
             // close if escape is pressed
             if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
                 escapePressed = true;
-                window.close();
+                playSound(soundDeath);
             }
         }
         if(player.shape.getGlobalBounds().intersects(finish.shape.getGlobalBounds())) {
@@ -234,6 +243,8 @@ int main() {
 
             if (spikesBounds.intersects(playerBounds)) {
                 player.shape.setPosition(player.spawnPoint);
+                soundDeath.setPlayingOffset(sf::milliseconds(750));
+                soundDeath.play();
             }
         }
 
@@ -278,7 +289,7 @@ int main() {
     RenderWindow window2(VideoMode(1065, 160), "Well done !");
 
     // playing sound
-    Sound.play();
+    soundEnd.play();
 
     // start ending window
     while (window2.isOpen()) {
@@ -302,4 +313,8 @@ int main() {
     }
 
     return 0;
+}
+
+void playSound(Sound sound) {
+    sound.play();
 }
