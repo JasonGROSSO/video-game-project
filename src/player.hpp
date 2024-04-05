@@ -19,7 +19,7 @@ public:
     void setPlayer() {
         playerTexture.loadFromFile("img/chicken.png");
         shape.setTexture(&playerTexture);
-        shape.setPosition(sf::Vector2f(GRID_SIZE * 7, GRID_SIZE * 6));
+        shape.setPosition(spawnPoint);
         shape.setSize(sf::Vector2f(GRID_SIZE - 5, GRID_SIZE - 5));
     }
 

@@ -78,9 +78,6 @@ int main() {
         if(player.shape.getGlobalBounds().intersects(finish.shape.getGlobalBounds())) {
             window.close();
         }
-        
-        // playing sound (it plays it when the window is close, for the end window, don't know why)
-        Sound.play();
 
         // movements -----------------------
         // jump 
@@ -277,6 +274,10 @@ int main() {
 
     // prepare the ending window
     RenderWindow window2(VideoMode(1065, 160), "Well done !");
+
+    // playing sound (it plays it when the window is close, for the end window, don't know why)
+    Sound.play();
+
     // start ending window (the audio will play as said before, don't know why)
     while (window2.isOpen()) {
         Event event;
@@ -290,6 +291,7 @@ int main() {
             if (escapePressed)
                 window2.close();
         }
+
         text.setString("\t\t\t\t\t\tWell done !! You have finished the level !! \nThis is all we got for now, but wait until the addition of more content ;) \n\n\t\tIf you want to play again, press escape and restart the game :)");
 
         window2.clear();
