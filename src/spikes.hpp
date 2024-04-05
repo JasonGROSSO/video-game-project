@@ -13,8 +13,8 @@ public:
         for (int i = 0; i < 19; i++) {
             shape.setPoint(0, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 3)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 5)- 5, (GRID_SIZE * (i + 3)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 3)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 5) - 5, (GRID_SIZE * (i + 3)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 4)) - 1)); spikes.push_back(shape);
         }
-        for (int i = 0; i < 3; i++) {
-            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 36)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 5)- 5, (GRID_SIZE * (i + 36)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 36)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 5) - 5, (GRID_SIZE * (i + 36)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 37)) - 1)); spikes.push_back(shape);
+        for (int i = 0; i < 2; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 37)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 5)- 5, (GRID_SIZE * (i + 37)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 37)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 5) - 5, (GRID_SIZE * (i + 37)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 38)) - 1)); spikes.push_back(shape);
         }
         for (int i = 0; i < 4; i++) {
             shape.setPoint(0, sf::Vector2f(GRID_SIZE * 11, (GRID_SIZE * (i + 36)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 12)- 5, (GRID_SIZE * (i + 36)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 11, (GRID_SIZE * (i + 36)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 12) - 5, (GRID_SIZE * (i + 36)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 11, (GRID_SIZE * (i + 37)) - 1)); spikes.push_back(shape);
