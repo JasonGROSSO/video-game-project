@@ -53,6 +53,8 @@ public:
 
 class Spikes {
 public:
+    const int GRID_SIZE = 20;
+
     std::vector<sf::ConvexShape> spikes;
     sf::ConvexShape shape;
 
@@ -60,7 +62,16 @@ public:
         shape.setPointCount(5);
         shape.setFillColor(sf::Color(0xafafafff));
 
-        //shape.setPoint(0, sf::Vector2f()); shape.setPoint(0, sf::Vector2f()); shape.setPoint(0, sf::Vector2f()); shape.setPoint(0, sf::Vector2f()); shape.setPoint(0, sf::Vector2f()); spikes.push_back(shape);
+        // spikes to the right
+        for (int i = 0; i < 19; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 3)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 5)- 5, (GRID_SIZE * (i + 3)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 3)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 5) - 5, (GRID_SIZE * (i + 3)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 4)) - 1)); spikes.push_back(shape);
+        }
+        for (int i = 0; i < 4; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 36)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 5)- 5, (GRID_SIZE * (i + 36)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 36)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 5) - 5, (GRID_SIZE * (i + 36)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 4, (GRID_SIZE * (i + 37)) - 1)); spikes.push_back(shape);
+        }
+        for (int i = 0; i < 4; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 11, (GRID_SIZE * (i + 36)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 12)- 5, (GRID_SIZE * (i + 36)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 11, (GRID_SIZE * (i + 36)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 12) - 5, (GRID_SIZE * (i + 36)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 11, (GRID_SIZE * (i + 37)) - 1)); spikes.push_back(shape);
+        }
     }
     
 };

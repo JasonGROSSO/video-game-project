@@ -6,7 +6,7 @@
 class Player {
 public:
     const int GRID_SIZE = 20;
-    //const sf::Vector2f spawnPoint = Vector2f(GRID_SIZE * 4, GRID_SIZE * 48);
+    const sf::Vector2f spawnPoint = sf::Vector2f(GRID_SIZE * 4, GRID_SIZE * 48);
 
     sf::RectangleShape shape;
     sf::Texture playerTexture;

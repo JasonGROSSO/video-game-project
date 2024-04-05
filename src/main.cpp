@@ -37,6 +37,9 @@ int main() {
     Walls wall;
     wall.setWalls();
 
+    Spikes spike;
+    spike.setSpikes();
+
     Finish finish;
     finish.setFinish();
     
@@ -225,6 +228,16 @@ int main() {
         // move the player
         player.shape.move(velocity);
 
+        // spikes collisions ---------------
+        for (auto &spike : spike.spikes) {
+            // sets the player and spikes bounds
+            FloatRect playerBounds = player.shape.getGlobalBounds();
+            FloatRect spikesBounds = spike.getGlobalBounds();
+
+            if (spikesBounds.intersects(playerBounds)) {
+                player.shape.setPosition(player.spawnPoint);
+            }
+        }
 
         // screen collisions ----------------
         //  top
@@ -250,6 +263,9 @@ int main() {
         window.clear();
         // map
         for (auto &i : wall.walls) {
+            window.draw(i);
+        }
+        for (auto &i : spike.spikes) {
             window.draw(i);
         }
         window.draw(finish.shape);
