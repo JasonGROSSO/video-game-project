@@ -80,7 +80,7 @@ int main() {
             // close if escape is pressed
             if (event.type == Event::KeyPressed && event.key.code == Keyboard::Escape) {
                 escapePressed = true;
-                playSound(soundDeath);
+                window.close();
             }
         }
         if(player.shape.getGlobalBounds().intersects(finish.shape.getGlobalBounds())) {
