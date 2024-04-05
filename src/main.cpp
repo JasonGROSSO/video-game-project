@@ -42,6 +42,7 @@ int main() {
 
     Finish finish;
     finish.setFinish();
+    finish.setFinish2();
     
     // setting up sounds
     SoundBuffer Buffer;
@@ -266,6 +267,7 @@ int main() {
             window.draw(i);
         }
         window.draw(finish.shape);
+        window.draw(finish.shape2);
         // player
         player.draw(window);
 
@@ -275,10 +277,10 @@ int main() {
     // prepare the ending window
     RenderWindow window2(VideoMode(1065, 160), "Well done !");
 
-    // playing sound (it plays it when the window is close, for the end window, don't know why)
+    // playing sound
     Sound.play();
 
-    // start ending window (the audio will play as said before, don't know why)
+    // start ending window
     while (window2.isOpen()) {
         Event event;
         while (window2.pollEvent(event)) {
