@@ -85,6 +85,25 @@ public:
         // spikes to the top
         for (int i = 0; i < 2; i++) {
             shape.setPoint(0, sf::Vector2f((GRID_SIZE * (i + 0)) + 1, (GRID_SIZE * 1) - 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * (i + 0)) + GRID_SIZE / 4, (GRID_SIZE * 1) - 15)); shape.setPoint(2, sf::Vector2f((GRID_SIZE * (i + 0)) + GRID_SIZE / 2, (GRID_SIZE * 1) - 1)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * (i + 0)) + ((GRID_SIZE / 4) * 3), (GRID_SIZE * 1) - 15)); shape.setPoint(4, sf::Vector2f((GRID_SIZE * (i + 1)) - 1, (GRID_SIZE * 1) - 1)); spikes.push_back(shape);
+        }  
+        // spikes to the left
+        for (int i = 0; i < 29; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 29, (GRID_SIZE * (i + 1)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 28) + 5, (GRID_SIZE * (i + 1)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 29, (GRID_SIZE * (i + 1)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 28) + 5, (GRID_SIZE * (i + 1)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 29, (GRID_SIZE * (i + 2)) - 1)); spikes.push_back(shape);
         }
-    }  
+        for (int i = 0; i < 17; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 29, (GRID_SIZE * (i + 31)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 28) + 5, (GRID_SIZE * (i + 31)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 29, (GRID_SIZE * (i + 31)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 28) + 5, (GRID_SIZE * (i + 31)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 29, (GRID_SIZE * (i + 32)) - 1)); spikes.push_back(shape);
+        }
+        for (int i = 0; i < 3; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 10, (GRID_SIZE * (i + 36)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 9) + 5, (GRID_SIZE * (i + 36)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 10, (GRID_SIZE * (i + 36)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 9) + 5, (GRID_SIZE * (i + 36)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 10, (GRID_SIZE * (i + 37)) - 1)); spikes.push_back(shape);
+        }
+        for (int i = 0; i < 4; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 16, (GRID_SIZE * (i + 31)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 15) + 5, (GRID_SIZE * (i + 31)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 16, (GRID_SIZE * (i + 31)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 15) + 5, (GRID_SIZE * (i + 31)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 16, (GRID_SIZE * (i + 32)) - 1)); spikes.push_back(shape);
+        }
+        for (int i = 0; i < 2; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 10, (GRID_SIZE * (i + 19)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 9) + 5, (GRID_SIZE * (i + 19)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 10, (GRID_SIZE * (i + 19)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 9) + 5, (GRID_SIZE * (i + 19)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 10, (GRID_SIZE * (i + 20)) - 1)); spikes.push_back(shape);
+        }
+        for (int i = 0; i < 2; i++) {
+            shape.setPoint(0, sf::Vector2f(GRID_SIZE * 17, (GRID_SIZE * (i + 17)) + 1)); shape.setPoint(1, sf::Vector2f((GRID_SIZE * 16) + 5, (GRID_SIZE * (i + 17)) + GRID_SIZE / 4)); shape.setPoint(2, sf::Vector2f(GRID_SIZE * 17, (GRID_SIZE * (i + 17)) + GRID_SIZE / 2)); shape.setPoint(3, sf::Vector2f((GRID_SIZE * 16) + 5, (GRID_SIZE * (i + 17)) + ((GRID_SIZE / 4) * 3))); shape.setPoint(4, sf::Vector2f(GRID_SIZE * 17, (GRID_SIZE * (i + 18)) - 1)); spikes.push_back(shape);
+        }
+    }
 };
